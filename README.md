@@ -2,52 +2,21 @@
 
 ## users テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| email              | string | null: false |
-| encrypted_password | string | null: false |
-| nickname           | string | null: false |
-| last_name          | string | null: false |
-| first_name         | string | null: false |
-| kana_last_name     | string | null: false |
-| kana_first_name    | string | null: false |
-| birth_date         | date   | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| nickname           | string | null: false               |
+| last_name          | string | null: false               |
+| first_name         | string | null: false               |
+| kana_last_name     | string | null: false               |
+| kana_first_name    | string | null: false               |
+| birth_date         | date   | null: false               |
 
 ### Association
 
-- has_one :address, dependent: :destroy
-- has_one :card, dependent: :destroy
-- has_many :items, dependent: :destroy
+- has_many :items
 - has_many :orders
-
-## addresses
-
-| Column             | Type       | Options                        |
-| ------------------ | ---------- | ------------------------------ |
-| zip_code           | string     | null: false                    |
-| prefecture_id      | integer    | null: false                    |
-| city               | string     | null: false                    |
-| street             | string     | null: false                    |
-| building           | string     |                                |
-| phone_number       | string     | null: false                    |
-| user               | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
-- belongs_to :prefecture
-
-## cards
-
-| Column      | Type       | Options                        |
-| ----------- | ---------- | ------------------------------ |
-| customer_id | integer    | null: false                    |
-| token_id    | integer    | null: false                    |
-| user        | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
 
 ## items テーブル
 
@@ -65,7 +34,7 @@
 
 ### Association
 
-- has_one :order, dependent: :destroy
+- has_one :order
 - belongs_to :user
 - belongs_to :prefecture
 - belongs_to :category
@@ -85,7 +54,24 @@
 
 - belongs_to :item
 - belongs_to :user
+- has_one :address
 
+## addresses
+
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| zip_code           | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| city               | string     | null: false                    |
+| street             | string     | null: false                    |
+| building           | string     |                                |
+| phone_number       | string     | null: false                    |
+| order              | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :order
+- belongs_to :prefecture
 
 # Active Hash
 
