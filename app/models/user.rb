@@ -5,15 +5,18 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-  validates_format_of :password, with: PASSWORD_REGEX
+  full_width = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
+  full_width_kana = /\A[ァ-ヶー]+\z/
+
+  validates_format_of :password, {with: PASSWORD_REGEX, messege: "is invalid. Include both letters and numbers"}
 
   with_options presence: true do
     validates :birth_date
-    with_options format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/} do
+    with_options format: {with: full_width, message: "is invalid. Input full-width characters"} do
       validates :last_name
       validates :first_name
     end
-    with_options format: {with: /\A[ァ-ヶー]+\z/} do
+    with_options format: {with: full_width_kana, message: "is invalid. Input full-width katakana characters"} do
       validates :kana_last_name
       validates :kana_first_name
     end
