@@ -66,8 +66,14 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
+      it 'passwordに全角が含まれると登録できない' do
+        @user.password = 'あa1234'
+        @user.password_confirmation = @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid")
+      end
       it 'passwordが5文字以下では登録できない' do
-        @user.password = '12345'
+        @user.password = 'a1234'
         @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
@@ -79,12 +85,12 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password is too long (maximum is 128 characters)")
       end
       it 'passwordとpassword_confirmationが不一致では登録できない' do
-        @user.password = '123456'
-        @user.password_confirmation = '1234567'
+        @user.password = 'a12345'
+        @user.password_confirmation = 'a123456'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
-      it '重複したemailが存在する場合は登録できない' do
+      it '重複したemailが存在すると登録できない' do
         @user.save
         @another_user = FactoryBot.build(:user, email: @user.email)
         @another_user.valid?
