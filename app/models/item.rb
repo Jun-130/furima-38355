@@ -8,14 +8,12 @@ class Item < ApplicationRecord
   belongs_to :shipping_day
   has_one_attached :image
 
-  half_width_digit = /\A[0-9]+\z/
-
   with_options presence: true do
     validates :image
     validates :name
     validates :description
-    validates :price, format: { with: half_width_digit, message: "is invalid. Input half-width characters" },
-                      numericality: { in: 300..9_999_999 }
+    validates :price, numericality: { only_integer: true, message: "is invalid. Input half-width characters" },
+                      inclusion: { in: 300..9_999_999, message: "is out of setting range" }
     with_options numericality: { other_than: 0, message: "can't be blank" } do
       validates :category_id
       validates :condition_id
