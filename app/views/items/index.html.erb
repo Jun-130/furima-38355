@@ -127,10 +127,9 @@
       新規投稿商品
     </div>
     <ul class='item-lists'>
-
-      <%= render partial: 'shared/item', collection: @items %>
-
-      <% if @items.nil?  %>
+      <% if @items.present? %>
+        <%= render partial: 'shared/item', collection: @items %>
+      <% else  %>
         <li class='list'>
           <%= link_to '#' do %>
           <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
