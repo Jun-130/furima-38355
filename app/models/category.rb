@@ -3,7 +3,6 @@ class Category < ActiveHash::Base
   has_many :items
 
   self.data = [
-    { id: 0, name: '---' },
     { id: 1, name: 'メンズ' },
     { id: 2, name: 'レディース' },
     { id: 3, name: 'ベビー・キッズ' },
