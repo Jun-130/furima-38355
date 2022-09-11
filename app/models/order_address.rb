@@ -11,7 +11,7 @@ class OrderAddress
     validates :city
     validates :street
     validates :phone_number, numericality: { only_integer: true, message: "is invalid. Input only number" },
-                             length: { minimum: 10, message: "is too short" }
+                             length: { minimum: 10, maximum: 11 }
     validates :user_id
     validates :item_id
   end
