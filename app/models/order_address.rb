@@ -3,7 +3,7 @@ class OrderAddress
   include ActiveModel::Model
   attr_accessor :zip_code, :prefecture_id, :city, :street, :building, :phone_number, :order_id, :user_id, :item_id
 
-  digit3_digit4 = /\A[0-9]{3}-[0-9]{4}\z/
+  digit3_digit4 = /\A\d{3}-\d{4}\z/
 
   with_options presence: true do
     validates :zip_code, format: {with: digit3_digit4, message: "is invalid. Include hyphen(-)"}
