@@ -1,6 +1,7 @@
 class Prefecture < ActiveHash::Base
   include ActiveHash::Associations
   has_many :items
+  has_many :addresses
 
   self.data = [
     { id: 1, name: '北海道' },

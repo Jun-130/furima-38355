@@ -12,6 +12,7 @@ AllCops:
    - "spec/spec_helper.rb"
    - "spec/models/user_spec.rb"
    - "spec/models/item_spec.rb"
+   - "spec/models/order_address_spec.rb"
 
 # 1行あたりの文字数をチェックする
 Layout/LineLength:
