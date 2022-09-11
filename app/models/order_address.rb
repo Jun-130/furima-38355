@@ -1,7 +1,7 @@
 class OrderAddress
 
   include ActiveModel::Model
-  attr_accessor :zip_code, :prefecture_id, :city, :street, :building, :phone_number, :user_id, :item_id
+  attr_accessor :zip_code, :prefecture_id, :city, :street, :building, :phone_number, :user_id, :item_id, :token
 
   digit3_digit4 = /\A\d{3}-\d{4}\z/
 
@@ -14,6 +14,7 @@ class OrderAddress
                              length: { minimum: 10, maximum: 11 }
     validates :user_id
     validates :item_id
+    validates :token
   end
 
   def save
